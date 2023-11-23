@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/login.dart';
 
 class RegistroPage extends StatelessWidget {
   RegistroPage({super.key});
@@ -10,22 +11,23 @@ class RegistroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Registro',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 252, 254, 240),
-          ),
-          textAlign: TextAlign.center,
-        ),
-        backgroundColor: const Color.fromARGB(255, 192, 146, 59),
-      ),
-      body: Padding(
+        body: DecoratedBox(
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 96, 108, 93)),
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Container(
+              width: size.width * 0.80,
+              height: size.height * 0.17,
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/GOT_Logo.png'),
+                      fit: BoxFit.fill)),
+            ),
             Container(
               width: size.width * 0.80,
               height: size.height * 0.05,
@@ -38,7 +40,7 @@ class RegistroPage extends StatelessWidget {
                 labelStyle: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 255, 244, 244),
                 ),
               ),
             ),
@@ -50,7 +52,7 @@ class RegistroPage extends StatelessWidget {
                 labelStyle: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 255, 244, 244),
                 ),
               ),
             ),
@@ -63,17 +65,28 @@ class RegistroPage extends StatelessWidget {
                 labelStyle: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 255, 244, 244),
                 ),
               ),
             ),
-            Container(
-              width: size.width * 0.80,
-              height: size.height * 0.05,
-              alignment: Alignment.center,
-            ),
             const SizedBox(height: 16.0),
+            TextButton(
+              onPressed: () {
+                print('no que no');
+                Navigator.pushNamed(context, 'login', arguments: '');
+              },
+              child: const Text(
+                '¿Si tienes cuenta? Inicia sesión',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 244, 244),
+                ),
+              ),
+            ),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 255, 244, 244)),
+              ),
               onPressed: () async {
                 //Aquí la validación
               },
@@ -82,13 +95,13 @@ class RegistroPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
-                  // color: Color.fromARGB(255, 65, 29, 2),
+                  color: Color.fromARGB(255, 96, 108, 93),
                 ),
               ),
             ),
           ],
         ),
       ),
-    );
+    ));
   }
 }
