@@ -6,7 +6,9 @@ class PrincipalScr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Holi Usuario'),
+      ),
       body: Center(
         child: Container(
           color: Colors.blue,

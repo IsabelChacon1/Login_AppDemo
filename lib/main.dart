@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/screens/login.dart';
-import 'package:login_app/screens/registro.dart';
+import 'package:login_app/screens/screens.dart';
+import 'package:provider/provider.dart';
+import 'services/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(AppState());
+}
+
+class AppState extends StatelessWidget {
+  //Para que se ejecute el provider si no no jala
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthService()),
+      ],
+      child: MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,13 +31,14 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 247, 230, 196)),
         useMaterial3: true,
       ),
-      initialRoute: 'login',
+      initialRoute: 'checking',
       routes: {
         'login': (_) => LoginPage(),
         'register': (_) => RegistroPage(),
-        //'home': (_) => HomeScreen(),
-        //'checking': (_) => CheckAuthScreen()
+        'home': (_) => PrincipalScr(),
+        'checking': (_) => CheckAuthScreen(),
       },
+      scaffoldMessengerKey: NotificationsService.messengerKey,
     );
   }
 }

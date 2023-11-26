@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/providers/login_form_provider.dart';
-import 'package:login_app/screens/principal.dart';
-import 'package:login_app/screens/registro.dart';
+import 'package:login_app/services/services.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    // final loginForm = Provider.of<LoginFormProvider>(context);
+    final loginForm = Provider.of<LoginF_Provider>(context); //falla el provider
+    //final authService = Provider.of<AuthService>(context, listen: false);
+    final size = MediaQuery.of(context)
+        .size; //variable que guarda el tamaño del dispositivo
 
     return Center(
         child: Scaffold(
@@ -98,11 +98,24 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () async {
-                  //Aquí verificas si está iniciada la sesion y te manda a la pantalla de inicio de la app
-                  //Si requisitos ok mandalo a principal
-                  PrincipalScr();
-                },
+                onPressed: loginForm.isLoading
+                    ? null
+                    : () async {
+                        FocusScope.of(context).unfocus();
+                        final authService =
+                            Provider.of<AuthService>(context, listen: false);
+                        if (!loginForm.isValidForm()) return;
+                        loginForm.isLoading = true;
+                        final String? errorMessage = await authService.login(
+                            loginForm.email, loginForm.password);
+                        if (errorMessage == null) {
+                          Navigator.pushReplacementNamed(context, 'home');
+                        } else {
+                          // print( errorMessage );
+                          NotificationsService.showSnackbar(errorMessage);
+                          loginForm.isLoading = false;
+                        }
+                      },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Color.fromARGB(255, 255, 244, 244)),

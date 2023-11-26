@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/screens/login.dart';
-import 'package:login_app/screens/principal.dart';
+import 'package:login_app/providers/login_form_provider.dart';
+import 'package:provider/provider.dart';
+
+import '../services/services.dart';
 
 class RegistroPage extends StatelessWidget {
   RegistroPage({super.key});
@@ -10,6 +12,7 @@ class RegistroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginF_Provider>(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
         body: DecoratedBox(
@@ -89,11 +92,29 @@ class RegistroPage extends StatelessWidget {
                 backgroundColor: MaterialStateProperty.all<Color>(
                     Color.fromARGB(255, 255, 244, 244)),
               ),
-              onPressed: () async {
-                //Aquí la validación
-                //Si requisitos ok mandalo a principal
-                PrincipalScr();
-              },
+              onPressed: loginForm.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      final authService =
+                          Provider.of<AuthService>(context, listen: false);
+
+                      if (!loginForm.isValidForm()) return;
+
+                      loginForm.isLoading = true;
+
+                      // TODO: validar si el login es correcto
+                      final String? errorMessage = await authService.createUser(
+                          loginForm.email, loginForm.password);
+
+                      if (errorMessage == null) {
+                        Navigator.pushReplacementNamed(context, 'home');
+                      } else {
+                        // TODO: mostrar error en pantalla
+                        print(errorMessage);
+                        loginForm.isLoading = false;
+                      }
+                    },
               child: const Text(
                 'Registrar',
                 style: TextStyle(
