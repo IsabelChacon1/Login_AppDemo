@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_app/login.dart';
+import 'package:login_app/screens/login.dart';
+import 'package:login_app/screens/principal.dart';
 
 class RegistroPage extends StatelessWidget {
   RegistroPage({super.key});
@@ -48,6 +49,7 @@ class RegistroPage extends StatelessWidget {
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(
+                hintText: 'ejemplo@gmail.com',
                 labelText: 'Email',
                 labelStyle: TextStyle(
                   fontSize: 20,
@@ -89,6 +91,8 @@ class RegistroPage extends StatelessWidget {
               ),
               onPressed: () async {
                 //Aquí la validación
+                //Si requisitos ok mandalo a principal
+                PrincipalScr();
               },
               child: const Text(
                 'Registrar',
