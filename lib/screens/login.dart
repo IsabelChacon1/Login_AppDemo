@@ -25,8 +25,10 @@ class _LoginForm extends StatelessWidget {
     final size = MediaQuery.of(context).size; //variable
     final loginForm = Provider.of<LoginF_Provider>(context);
     return Center(
-      child: Scaffold(
-        body: DecoratedBox(
+      child: Form(
+        key: loginForm.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: DecoratedBox(
           decoration: const BoxDecoration(
               color: Color.fromARGB(255, 96, 108, 93)
               // image: DecorationImage(
@@ -41,17 +43,12 @@ class _LoginForm extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 Container(
                   width: size.width * 0.80,
-                  height: size.height * 0.17,
+                  height: size.height * 0.25,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/GOT_Logo.png'),
-                          fit: BoxFit.fill)),
-                ),
-                Container(
-                  width: size.width * 0.80,
-                  height: size.height * 0.05,
-                  alignment: Alignment.center,
+                          fit: BoxFit.contain)),
                 ),
                 TextFormField(
                   autocorrect: false,

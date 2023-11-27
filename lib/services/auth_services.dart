@@ -14,7 +14,7 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password,
-      'returnSecureToken': true
+      //'returnSecureToken': true
     };
 
     final url = Uri.http(_baseUrl, '/api/CuentasControles/registrar');
@@ -41,18 +41,16 @@ class AuthService extends ChangeNotifier {
       'password': password
     };
     final url = Uri.https(_baseUrl, '/api/CuentasControles/Login');
-
-    //final url2 = Uri.https(_baseUrl, '/Prueba/on');
-
-    /*final resp2 = await http.get(url2, headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept': 'application/json'
-    });*/
-
     final resp = await http.post(url,
         headers: {"Content-Type": "application/json"},
         body: json.encode(authData));
+    //este me da error - Exception has occurred. _ClientSocketException (Connection reset by peer)
 
+    //final url2 = Uri.https(_baseUrl, '/Prueba/on');
+    /*final resp = await http.get(url, headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json'
+    });*/
     /*final resp = await http.post(url,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
