@@ -14,7 +14,7 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password,
-      //'returnSecureToken': true
+      'returnSecureToken': true
     };
 
     final url = Uri.http(_baseUrl, '/api/CuentasControles/registrar');

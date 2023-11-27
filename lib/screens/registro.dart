@@ -5,7 +5,19 @@ import 'package:provider/provider.dart';
 import '../services/services.dart';
 
 class RegistroPage extends StatelessWidget {
-  RegistroPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: ChangeNotifierProvider(
+            create: (_) => LoginF_Provider(), child: _RegistroPage()),
+      ),
+    );
+  }
+}
+
+class _RegistroPage extends StatelessWidget {
+  _RegistroPage({super.key});
   final TextEditingController _nickController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -32,11 +44,11 @@ class RegistroPage extends StatelessWidget {
                       image: AssetImage('assets/GOT_Logo.png'),
                       fit: BoxFit.fill)),
             ),
-            Container(
-              width: size.width * 0.80,
-              height: size.height * 0.05,
-              alignment: Alignment.center,
-            ),
+            // Container(
+            //   width: size.width * 0.80,
+            //   height: size.height * 0.05,
+            //   alignment: Alignment.center,
+            // ),
             TextField(
               controller: _nickController,
               decoration: const InputDecoration(
