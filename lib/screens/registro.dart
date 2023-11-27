@@ -40,34 +40,44 @@ class _RegistroPage extends StatelessWidget {
               children: [
                 Container(
                   width: size.width * 0.80,
-                  height: size.height * 0.17,
+                  height: size.height * 0.20,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('assets/GOT_Logo.png'),
-                          fit: BoxFit.fill)),
+                          fit: BoxFit.contain)),
                 ),
                 // Container(
                 //   width: size.width * 0.80,
                 //   height: size.height * 0.05,
                 //   alignment: Alignment.center,
                 // ),
-                TextField(
+                TextFormField(
                   controller: _nickController,
                   decoration: const InputDecoration(
-                    labelText: 'Nombre',
+                    labelText: 'Usuario',
                     labelStyle: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 255, 244, 244),
                     ),
                   ),
+                  validator: (value) {
+                    return (value != null && value.length > 3)
+                        ? null
+                        : 'El nombre debe tener minimo 3 caracteres';
+                  },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
                     hintText: 'ejemplo@gmail.com',
+                    hintStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                      color: Color.fromARGB(255, 255, 244, 244),
+                    ),
                     labelText: 'Email',
                     labelStyle: TextStyle(
                       fontSize: 20,
@@ -75,19 +85,39 @@ class _RegistroPage extends StatelessWidget {
                       color: Color.fromARGB(255, 255, 244, 244),
                     ),
                   ),
+                  onChanged: (value) => loginForm.email = value,
+                  validator: (value) {
+                    String pattern =
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                    RegExp regExp = RegExp(pattern);
+                    return regExp.hasMatch(value ?? '')
+                        ? null
+                        : 'El valor ingresado no luce como un correo';
+                  },
                 ),
                 const SizedBox(height: 16.0),
-                TextField(
+                TextFormField(
                   controller: _passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
-                    labelText: 'Contraseña',
-                    labelStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 255, 244, 244),
-                    ),
-                  ),
+                      hintText: '********',
+                      labelText: 'Contraseña',
+                      labelStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 255, 244, 244),
+                      ),
+                      hintStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        color: Color.fromARGB(255, 255, 244, 244),
+                      )),
+                  onChanged: (value) => loginForm.password = value,
+                  validator: (value) {
+                    return (value != null && value.length >= 8)
+                        ? null
+                        : 'La contraseña debe de ser de 8 caracteres';
+                  },
                 ),
                 const SizedBox(height: 16.0),
                 TextButton(
