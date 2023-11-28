@@ -87,7 +87,7 @@ class _RegistroPage extends StatelessWidget {
                   ),
                   onChanged: (value) => loginForm.email = value,
                   validator: (value) {
-                    String pattern =
+                    String pattern = //expresion regular pal correo
                         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                     RegExp regExp = RegExp(pattern);
                     return regExp.hasMatch(value ?? '')
@@ -145,13 +145,10 @@ class _RegistroPage extends StatelessWidget {
                               Provider.of<AuthService>(context, listen: false);
 
                           if (!loginForm.isValidForm()) return;
-
                           loginForm.isLoading = true;
-
                           // TODO: validar si el login es correcto
                           final String? errorMessage = await authService
                               .createUser(loginForm.email, loginForm.password);
-
                           if (errorMessage == null) {
                             Navigator.pushReplacementNamed(context, 'home');
                           } else {

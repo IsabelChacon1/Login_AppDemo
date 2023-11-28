@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app/providers/login_form_provider.dart';
 import 'package:login_app/screens/screens.dart';
 import 'package:provider/provider.dart';
 import 'services/services.dart';
@@ -14,6 +15,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
+        ChangeNotifierProvider(create: (context) => LoginF_Provider()),
       ],
       child: MyApp(),
     );
