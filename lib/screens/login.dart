@@ -43,7 +43,7 @@ class _LoginForm extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 Container(
                   width: size.width * 0.80,
-                  height: size.height * 0.25,
+                  height: size.height * 0.16,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                       image: DecorationImage(

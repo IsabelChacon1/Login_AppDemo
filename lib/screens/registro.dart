@@ -40,7 +40,7 @@ class _RegistroPage extends StatelessWidget {
               children: [
                 Container(
                   width: size.width * 0.80,
-                  height: size.height * 0.20,
+                  height: size.height * 0.13,
                   alignment: Alignment.center,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
